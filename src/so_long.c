@@ -2,80 +2,56 @@
 
 #include <mlx.h>
 
-void init_game(t_game *game)
+
+int init_model(void *mlx, t_img *img, char *path)
 {
-	game->x = 400;
-	game->y = 400;
+	img->img = mlx_xpm_file_to_image(mlx, path, &(img->width), &
+	(img->height));
+	img->address = mlx_get_data_addr(img->img, &img->bpp,
+									 &img->line_length, &img->endian);
+	return (1);
 }
 
-//int render_frame(t_img_and_game *data)
-//{
-//	int y = 1080+1;
-//	int x;
-//	int color = get_color(data);
-//	while (y-- > 0)
-//	{
-//		x = 1920+1;
-//		while (x-- > 0)
-//			put_pixel(data->img, x, y, color);
-//	}
-//	mlx_put_image_to_window(data->game->mlx, data->game->win, data->img->img, 0,
-//							0);
-//	return (0);
-//}
+int rend_init(t_rend *rend, t_game *game)
+{
+	rend->mlx = mlx_init();
+	rend->win = mlx_new_window(rend->mlx, game->map_width * MODEL_SIZE,
+							   game->map_height * MODEL_SIZE, "SO_LONG");
+	rend->main_img.img = mlx_new_image(rend->mlx, game->map_width * MODEL_SIZE,
+									game->map_height * MODEL_SIZE);
+	rend->main_img.address = mlx_get_data_addr(rend->main_img.img,
+												&rend->main_img.bpp,
+												&rend->main_img.line_length,
+												&rend->main_img.endian);
+
+	init_model(rend->mlx, &rend->collectible, COLL_PATH);
+	init_model(rend->mlx, &rend->floor, GRASS_PATH);
+	init_model(rend->mlx, &rend->wall, WALL_PATH);
+	init_model(rend->mlx, &rend->hero, HERO);
+
+	return (1);
+}
+
 
 int	main(int argc, char **argv)
 {
 	(void) argv;
 	if (argc == 2)
 	{
-		t_img	img;
+		t_rend	rend;
 		t_game 	game;
+		t_dataset set;
+		set.game = &game;
+		set.rend = &rend;
+		init_data(&set);
 		map_init(&game, argv);
+		rend_init(&rend, &game);
+		game_init(&game);
 
-		int i = 0;
-		while (i < 10)
-		{
-			ft_putstr_fd(game.map[i++] ,1);
-			ft_putstr_fd("\n" ,1);
-		}
-
-		t_dataset dataset;
-		dataset.img = &img;
-		dataset.game = &game;
-
-		init_game(&game);
-		game.mlx = mlx_init();
-		game.win = mlx_new_window(game.mlx, 1920, 1080, "Hello world!");
-		img.img = mlx_new_image(game.mlx, 1920, 1080);
-		img.address = mlx_get_data_addr(img.img, &img.bpp, &img.line_length,
-										&img.endian);
-
-		int y = 20;
-		int x;
-		while (y-- > 0)
-		{
-			x = 20;
-			while (x-- > 0)
-				put_pixel(&img, x, y, 0x00FF0000);
-		}
-		//return (0);
-
-		t_img spr_img;
-
-		spr_img.img = mlx_xpm_file_to_image(game.mlx, "./assets/floor.xpm", &
-		(spr_img.width), & (spr_img.height));
-		spr_img.address = mlx_get_data_addr(spr_img.img, &spr_img.bpp,
-											&spr_img.line_length, &spr_img.endian);
-		img_on_img(&img, &spr_img, 0, 0);
-		img_on_img(&img, &spr_img, 64, 0);
-
-		mlx_put_image_to_window(game.mlx, game.win, img.img, 0, 0);
-		mlx_key_hook(game.win, process_key, (void *)0);
-
-		mlx_hook(game.win, 2, 1L<<0, move, &dataset);
-		//	mlx_loop_hook(game.mlx, draw_circle, &img_and_game);
-		mlx_loop(game.mlx);
+		mlx_hook(rend.win, 33, 1L << 17, leave_game, &set);
+		mlx_key_hook(rend.win, process_key, &set);
+		mlx_loop_hook(rend.mlx, game_loop, &set);
+		mlx_loop(rend.mlx);
 	}
 	else
 		ft_putstr_fd("Number of arguments is incorrect.\n", 2);

@@ -8,15 +8,37 @@
 #include <stdlib.h>
 #include <stddef.h>
 
-# define MOD_S 64
+# define MODEL_SIZE 64
 # define BUFFER_SIZE 40
+
+# define HERO_CH 'P'
+# define WALL_CH '1'
+# define FLOOR_CH '0'
+# define COLL_CH 'C'
+# define EXIT_CH 'E'
 
 # define MEM_ERR "Memory allocation error."
 # define BAD_FD "Bad file descriptor error."
 # define BAD_FILE "File read error."
-
+# define GRASS_PATH "./assets/grass.XPM"
+# define WALL_PATH "./assets/wall.XPM"
+# define COLL_PATH "./assets/weapon_sword_1.XPM"
+# define HERO "./assets/knight_run_anim_f0.XPM"
+# define ESC 65307
+# define LEFT 97
+# define UP 119
+# define RIGHT 100
+# define DOWN 115
+# define TRANSPARENCY 0xFF000000
 #include <stdio.h>
 //#include "mlx_int.h"
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+	struct s_list	*prev;
+}				t_list;
 
 typedef struct	s_img{
 	void	*img;
@@ -28,24 +50,36 @@ typedef struct	s_img{
 	int		height;
 }				t_img;
 
-//typedef struct s_data {
-//	void	*img;
-//	char	*addr;
-//	int		bits_per_pixel;
-//	int		line_length;
-//	int		endian;
-//	int		width;
-//	int		height;
-//}				t_data;
 
-typedef struct s_game{
+typedef struct	s_rend
+{
 	void	*mlx;
 	void	*win;
-	int		x;
-	int		y;
+	t_img main_img;
+	t_img floor;
+	t_img wall;
+	t_img collectible;
+	t_img exit;
+	t_img hero;
+}				t_rend;
+
+typedef struct s_coordinates
+{
+	int x;
+	int y;
+} t_coordinates;
+
+typedef struct s_env
+{
+	t_coordinates pos;
+} t_env;
+
+typedef struct s_game{
+	t_coordinates hero_pos;
 	int		map_width;
 	int		map_height;
 	char 	**map;
+	t_list *collectibles;
 }				t_game;
 
 typedef struct s_draw_data
@@ -62,21 +96,14 @@ typedef struct s_draw_data
 } t_draw_data;
 
 typedef struct s_dataset{
-	t_img *img;
+	t_rend *rend;
 	t_game *game;
 } 				t_dataset;
 
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
-
-void	put_pixel(t_img *data, int x, int y, int color);
-int		process_key(int key, void *param);
-int leave_game(t_game *vars);
+void	put_pixel(t_img *data, int x, int y, unsigned color);
+int process_key(int key, t_dataset *set);
+int leave_game(t_dataset *set);
 int resize_attempt(int keycode, t_game *vars);
-int move(int keycode, t_dataset *data);
 void	img_on_img(t_img *img, t_img *s_img, int startX, int startY);
 int map_init(t_game *game, char **argv);
 
@@ -97,5 +124,17 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void free_str_array(char **str_arr, int index);
 void *ft_error_null(char *message);
 void free_str_ptr(void *str);
+int game_loop(t_dataset *set);
+void init_data(t_dataset *set);
+void set_img_null(t_img *img);
+void free_data(t_dataset *set);
+int leave_game(t_dataset *set);
+void game_init(t_game *game);
+t_coordinates get_pos(char obj, t_game *game);
+void move(int direction, t_coordinates *coordinates, char **map);
+t_list *scan_objects(t_game *game, char obj);
+int game_loop(t_dataset *set);
+void check_collisions(t_dataset *set);
+void	ft_lstdelone(t_list **lst, int c, void (*del)(void*));
 
 #endif

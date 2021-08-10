@@ -1,7 +1,7 @@
 #include "../includes/so_long.h"
 
 
-int gnl_map(int fd, t_list **lines)
+static int gnl_map(int fd, t_list **lines)
 {
 	int read_flag;
 	char *line;
@@ -18,40 +18,37 @@ int gnl_map(int fd, t_list **lines)
 			close(fd);
 			return (-1);
 		}
-		ft_lstnew(line);
 		ft_lstadd_back(lines, ft_lstnew(line));
 	}
 	close(fd);
 	return (1);
 }
 
-void count_lines_and_chars(t_list *lines, int *lines_cnt, int *max_len)
+static void count_lines_and_chars(t_list *lines, t_game *game)
 {
 	int tmp;
 
-	*max_len = 0;
-	*lines_cnt = 0;
+	game->map_width = 0;
+	game->map_height = 0;
 	while(lines)
 	{
-		*lines_cnt += 1;
+		game->map_height += 1;
 		tmp = ft_strlen((char*)lines->content);
-		if (tmp > *max_len)
-			*max_len = tmp;
+		if (tmp > game->map_width)
+			game->map_width = tmp;
 		lines = lines->next;
 	}
 }
 
-char **str_lines_to_arr(t_list *lines)
+static char **str_lines_to_arr(t_list *lines, t_game *game)
 {
-	int lines_cnt;
-	int max_len;
 	char **str_arr;
 	int tmp;
 	t_list *start;
 
 	start = lines;
-	count_lines_and_chars(lines, &lines_cnt, &max_len);
-	str_arr = (char**) malloc((sizeof (char*)) * lines_cnt);
+	count_lines_and_chars(lines, game);
+	str_arr = (char**) malloc((sizeof (char*)) * game->map_height);
 	if (str_arr == NULL)
 		ft_error_null(MEM_ERR);
 	tmp = 0;
@@ -85,12 +82,13 @@ int map_init(t_game *game, char **argv)
 	}
 	fd = gnl_map(fd, &lines);
 	if (fd == -1)
-		return (-1);
-	game->map = str_lines_to_arr(lines);
+		exit(EXIT_FAILURE);
+	game->map = str_lines_to_arr(lines, game);
 	if (!(game->map))
 	{
 		ft_lstclear(&lines, free_str_ptr);
-		return (-1);
+		exit(EXIT_FAILURE);
 	}
+	ft_lstclear(&lines, free_str_ptr);
 	return (1);
 }

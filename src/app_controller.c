@@ -1,31 +1,14 @@
 #include "../includes/so_long.h"
 
-int leave_game(t_game *vars)
+int leave_game(t_dataset *set)
 {
-
-	mlx_destroy_window(vars->mlx, vars->win);
-	return (0);
-}
-
-int resize_attempt(int keycode, t_game *vars)
-{
-	(void) keycode;
-	(void) vars;
-	printf("Resize attempt");
-	return (0);
-}
-
-int move(int keycode, t_dataset *data)
-{
-	if (keycode == 65307)
-		leave_game(data->game);
-	if (keycode == 65361)
-		data->game->x -= 10;
-	if (keycode == 65362)
-		data->game->y -= 10;
-	if (keycode == 65363)
-		data->game->x += 10;
-	if (keycode == 65364)
-		data->game->y += 10;
-	return (0);
+	mlx_destroy_image(set->rend->mlx, set->rend->main_img.img);
+	mlx_destroy_image(set->rend->mlx, set->rend->floor.img);
+	mlx_destroy_image(set->rend->mlx, set->rend->wall.img);
+	mlx_destroy_window(set->rend->mlx, set->rend->win);
+	mlx_destroy_display(set->rend->mlx);
+	mlx_loop_end(set->rend->mlx);
+	free(set->rend->mlx);
+	free_data(set);
+	exit(0);
 }
