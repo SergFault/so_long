@@ -2,14 +2,16 @@
 
 t_img *get_img(t_rend *rend,char ch)
 {
-	if (ch == '1')
+	if (ch == WALL_CH)
 		return (&rend->wall);
-	if (ch == '0')
+	if (ch == FLOOR_CH)
 		return (&rend->floor);
-	if (ch == 'P')
+	if (ch == HERO_CH)
 		return (&rend->hero);
-	if (ch == 'C')
+	if (ch == COLL_CH)
 		return (&rend->collectible);
+	if (ch == EXIT_CH)
+		return (&rend->exit);
 	return (&rend->floor);
 }
 
@@ -62,7 +64,6 @@ static void objs_on_img(t_dataset *set, t_list *objs, char type)
 	}
 }
 
-
 int game_loop(t_dataset *set)
 {
 	(void)  set;
@@ -71,10 +72,12 @@ int game_loop(t_dataset *set)
 	check_collisions(set);
 
 	map_on_img(set);
-	obj_on_img(set, HERO_CH);
 	objs_on_img(set, set->game->collectibles, COLL_CH);
-
+	objs_on_img(set, set->game->exits, EXIT_CH);
+	obj_on_img(set, HERO_CH);
 	mlx_put_image_to_window(rend->mlx, rend->win, (rend->main_img
 	.img),0, 0);
+	if (set->game->win)
+		leave_game(set);
 	return (1);
 }

@@ -30,7 +30,26 @@ static int hero_cols(t_dataset *set)
 	}
 	return (1);
 }
+
+static int hero_exit(t_dataset *set)
+{
+	t_coordinates her_pos;
+	t_list *exits;
+
+	her_pos = set->game->hero_pos;
+	exits = set->game->exits;
+	while (exits)
+	{
+		if ((coordinates_intersect(((t_env*)(exits)->content)->pos,
+								  her_pos)) & (set->game->collectibles == 0))
+			set->game->win = 1;
+		exits = exits->next;
+	}
+	return (1);
+}
+
 void check_collisions(t_dataset *set)
 {
 	hero_cols(set);
+	hero_exit(set);
 }

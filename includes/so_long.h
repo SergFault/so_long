@@ -24,6 +24,7 @@
 # define WALL_PATH "./assets/wall.XPM"
 # define COLL_PATH "./assets/weapon_sword_1.XPM"
 # define HERO "./assets/knight_run_anim_f0.XPM"
+# define EXIT_PATH "./assets/exit.XPM"
 # define ESC 65307
 # define LEFT 97
 # define UP 119
@@ -78,7 +79,9 @@ typedef struct s_game{
 	t_coordinates hero_pos;
 	int		map_width;
 	int		map_height;
+	int		win;
 	char 	**map;
+	t_list *exits;
 	t_list *collectibles;
 }				t_game;
 

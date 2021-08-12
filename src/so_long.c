@@ -23,7 +23,7 @@ int rend_init(t_rend *rend, t_game *game)
 												&rend->main_img.bpp,
 												&rend->main_img.line_length,
 												&rend->main_img.endian);
-
+	init_model(rend->mlx, &rend->exit, EXIT_PATH);
 	init_model(rend->mlx, &rend->collectible, COLL_PATH);
 	init_model(rend->mlx, &rend->floor, GRASS_PATH);
 	init_model(rend->mlx, &rend->wall, WALL_PATH);
