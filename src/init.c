@@ -22,6 +22,7 @@ void game_init(t_game *game)
 	t_coordinates pos;
 
 	pos = get_pos(HERO_CH, game);
+	game->movements = 0;
 	game->win = 0;
 	game->collectibles = scan_objects(game, COLL_CH);
 	game->exits = scan_objects(game, EXIT_CH);

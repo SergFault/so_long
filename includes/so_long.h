@@ -80,6 +80,7 @@ typedef struct s_game{
 	int		map_width;
 	int		map_height;
 	int		win;
+	int		movements;
 	char 	**map;
 	t_list *exits;
 	t_list *collectibles;
@@ -134,10 +135,11 @@ void free_data(t_dataset *set);
 int leave_game(t_dataset *set);
 void game_init(t_game *game);
 t_coordinates get_pos(char obj, t_game *game);
-void move(int direction, t_coordinates *coordinates, char **map);
+void move(int direction, t_coordinates *pos, t_game *game);
 t_list *scan_objects(t_game *game, char obj);
 int game_loop(t_dataset *set);
 void check_collisions(t_dataset *set);
 void	ft_lstdelone(t_list **lst, int c, void (*del)(void*));
+void	ft_putnbr_fd(int n, int fd);
 
 #endif

@@ -7,16 +7,27 @@ static int check_wall(int x, int y, char **map)
 	return (0);
 }
 
-void move(int direction, t_coordinates *pos, char** map)
+static void change_pos(char axis, int val, t_game *game)
 {
-	if (direction == UP && (!check_wall(pos->x, pos->y-1, map)))
-		pos->y--;
-	if (direction == DOWN && (!check_wall(pos->x, pos->y+1, map)))
-		pos->y++;
-	if (direction == LEFT && (!check_wall(pos->x-1, pos->y, map)))
-		pos->x--;
-	if (direction == RIGHT && (!check_wall(pos->x+1, pos->y, map)))
-		pos->x++;
+	if (axis == 'x')
+		game->hero_pos.x += val;
+	else if(axis == 'y')
+		game->hero_pos.y += val;
+	game->movements++;
+	ft_putstr_fd("\rNumber of movements: ", STDOUT_FILENO);
+	ft_putnbr_fd(game->movements, STDOUT_FILENO);
+}
+
+void move(int direction, t_coordinates *pos, t_game *game)
+{
+	if (direction == UP && (!check_wall(pos->x, pos->y-1, game->map)))
+		change_pos('y',-1, game);
+	if (direction == DOWN && (!check_wall(pos->x, pos->y+1, game->map)))
+		change_pos('y',1, game);
+	if (direction == LEFT && (!check_wall(pos->x-1, pos->y, game->map)))
+		change_pos('x',-1, game);
+	if (direction == RIGHT && (!check_wall(pos->x+1, pos->y, game->map)))
+		change_pos('x',1, game);
 }
 
 t_list *scan_objects(t_game *game, char obj)

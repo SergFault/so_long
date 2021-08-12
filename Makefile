@@ -17,6 +17,7 @@ SRC			=	src/so_long.c src/draw_utils.c src/keyboard_processor.c \
 				utils/free_str_ptr.c src/mem_utils.c\
 				src/collisions.c\
 				utils/ft_lstdelone.c\
+				utils/ft_putnbr_fd.c\
 				src/map_utils.c src/position.c
 OBJ 		= 	${SRC:.c=.o}
 
