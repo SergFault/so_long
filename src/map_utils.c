@@ -67,22 +67,36 @@ static char **str_lines_to_arr(t_list *lines, t_game *game)
 	return str_arr;
 }
 
-int map_init(t_game *game, char **argv)
+static t_list *lines_list(t_list *lines, char *path)
 {
-	(void) game;
 	int fd;
-	t_list *lines;
 
-	lines = NULL;
-	fd = open(argv[1], O_RDONLY);
+	fd = open(path, O_RDONLY);
 	if 	((read(fd, NULL, 0) < 0) || fd < 0)
 	{
-		ft_putstr_fd( BAD_FD, 2);
+		ft_putstr_fd(BAD_FD, 2);
 		exit(EXIT_FAILURE);
 	}
 	fd = gnl_map(fd, &lines);
 	if (fd == -1)
 		exit(EXIT_FAILURE);
+	return (lines);
+}
+
+int map_init(t_game *game, char **argv)
+{
+	t_list *lines;
+
+	lines = NULL;
+
+	if (!(check_extension(argv[1])))
+	{
+		ft_putstr_fd(MAP_EXT_ERR, STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+
+	lines = lines_list(lines, argv[1]);
+
 	game->map = str_lines_to_arr(lines, game);
 	if (!(game->map))
 	{

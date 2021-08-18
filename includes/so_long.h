@@ -17,9 +17,11 @@
 # define COLL_CH 'C'
 # define EXIT_CH 'E'
 
-# define MEM_ERR "Memory allocation error."
-# define BAD_FD "Bad file descriptor error."
-# define BAD_FILE "File read error."
+# define ARGS_ERROR "Number of arguments is incorrect.\n"
+# define MEM_ERR "Memory allocation error.\n"
+# define MAP_EXT_ERR "Wrong file extension.\n"
+# define BAD_FD "Bad file descriptor error.\n"
+# define BAD_FILE "File read error.\n"
 # define GRASS_PATH "./assets/grass.XPM"
 # define WALL_PATH "./assets/wall.XPM"
 # define COLL_PATH "./assets/weapon_sword_1.XPM"
@@ -107,7 +109,6 @@ typedef struct s_dataset{
 void	put_pixel(t_img *data, int x, int y, unsigned color);
 int process_key(int key, t_dataset *set);
 int leave_game(t_dataset *set);
-int resize_attempt(int keycode, t_game *vars);
 void	img_on_img(t_img *img, t_img *s_img, int startX, int startY);
 int map_init(t_game *game, char **argv);
 
@@ -141,5 +142,7 @@ int game_loop(t_dataset *set);
 void check_collisions(t_dataset *set);
 void	ft_lstdelone(t_list **lst, int c, void (*del)(void*));
 void	ft_putnbr_fd(int n, int fd);
+int check_extension(char *argv);
+//int validate_map(t_list *map);
 
 #endif

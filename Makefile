@@ -18,7 +18,8 @@ SRC			=	src/so_long.c src/draw_utils.c src/keyboard_processor.c \
 				src/collisions.c\
 				utils/ft_lstdelone.c\
 				utils/ft_putnbr_fd.c\
-				src/map_utils.c src/position.c
+				src/map_utils.c src/position.c \
+				src/checker.c
 OBJ 		= 	${SRC:.c=.o}
 
 %.o:%.c $(HEADER)

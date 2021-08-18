@@ -32,6 +32,15 @@ int rend_init(t_rend *rend, t_game *game)
 	return (1);
 }
 
+int init(t_dataset *set, char **argv)
+{
+	init_data(set);
+	map_init(set->game, argv);
+	//check_map(set->game->map, argv[1]);
+	rend_init(set->rend, set->game);
+	game_init(set->game);
+	return (1);
+}
 
 int	main(int argc, char **argv)
 {
@@ -43,10 +52,8 @@ int	main(int argc, char **argv)
 		t_dataset set;
 		set.game = &game;
 		set.rend = &rend;
-		init_data(&set);
-		map_init(&game, argv);
-		rend_init(&rend, &game);
-		game_init(&game);
+
+		init(&set, argv);
 
 		mlx_hook(rend.win, 33, 1L << 17, leave_game, &set);
 		mlx_key_hook(rend.win, process_key, &set);
@@ -54,5 +61,5 @@ int	main(int argc, char **argv)
 		mlx_loop(rend.mlx);
 	}
 	else
-		ft_putstr_fd("Number of arguments is incorrect.\n", 2);
+		ft_putstr_fd(ARGS_ERROR, 2);
 }
