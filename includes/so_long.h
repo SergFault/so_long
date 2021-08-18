@@ -17,10 +17,12 @@
 # define COLL_CH 'C'
 # define EXIT_CH 'E'
 
+# define VALID_CHARS "01CEP"
 # define ARGS_ERROR "Number of arguments is incorrect.\n"
 # define MEM_ERR "Memory allocation error.\n"
 # define MAP_EXT_ERR "Wrong file extension.\n"
 # define BAD_FD "Bad file descriptor error.\n"
+# define MAP_VALID_ERR "Map validation error.\n"
 # define BAD_FILE "File read error.\n"
 # define GRASS_PATH "./assets/grass.XPM"
 # define WALL_PATH "./assets/wall.XPM"
@@ -42,6 +44,15 @@ typedef struct s_list
 	struct s_list	*next;
 	struct s_list	*prev;
 }				t_list;
+
+typedef struct s_objs_number
+{
+	int floor;
+	int wall;
+	int collectable;
+	int exit;
+	int player;
+}		t_objs_number;
 
 typedef struct	s_img{
 	void	*img;
@@ -118,7 +129,6 @@ void	ft_putstr_fd(char *s, int fd);
 int			get_next_line(int fd, char **line);
 int			ft_strdup_free(const char *s1, char **dest);
 size_t		ft_strlen(const char *s);
-char		*ft_strchr(const char *s, int c);
 int			ft_sj_ff_dt(const char *s1, const char *s2, char **dest);
 t_list		*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -144,5 +154,7 @@ void	ft_lstdelone(t_list **lst, int c, void (*del)(void*));
 void	ft_putnbr_fd(int n, int fd);
 int check_extension(char *argv);
 //int validate_map(t_list *map);
+char	*ft_strchr(const char *s, int c);
+int		validate_map(t_list *map);
 
 #endif

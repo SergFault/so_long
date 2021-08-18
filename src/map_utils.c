@@ -97,6 +97,13 @@ int map_init(t_game *game, char **argv)
 
 	lines = lines_list(lines, argv[1]);
 
+	if (!(validate_map(lines)))
+	{
+		ft_putstr_fd(MAP_VALID_ERR, STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+
+
 	game->map = str_lines_to_arr(lines, game);
 	if (!(game->map))
 	{
