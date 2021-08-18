@@ -49,9 +49,44 @@ static int check_chars(t_list *map)
 	return (1);
 }
 
+static int cnt_map_content(t_list *map, t_objs_number *objs)
+{
+	char *line;
+
+	while (map)
+	{
+		line = (char *)map->content;
+		while(*line)
+		{
+			if (*line == 'C')
+				objs->collectable++;
+			else if (*line == 'E')
+				objs->exit++;
+			else if (*line == 'P')
+				objs->player++;
+			line++;
+		}
+		map = map->next;
+	}
+	return (1);
+}
+static int check_map_content(t_list *map)
+{
+	t_objs_number objs;
+
+	objs.player = 0;
+	objs.collectable = 0;
+	objs.exit = 0;
+	cnt_map_content(map, &objs);
+	if ((objs.exit < 1) || (objs.collectable < 1) || (objs.player < 1))
+		return (0);
+	return (1);
+}
+
+
 int validate_map(t_list *map)
 {
-	if (!(check_chars(map)) || !(check_rect(map)))
+	if (!(check_chars(map)) || !(check_rect(map)) || !(check_map_content(map)))
 		return (0);
 	return (1);
 }

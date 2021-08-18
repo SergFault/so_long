@@ -47,8 +47,6 @@ typedef struct s_list
 
 typedef struct s_objs_number
 {
-	int floor;
-	int wall;
 	int collectable;
 	int exit;
 	int player;
