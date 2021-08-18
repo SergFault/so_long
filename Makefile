@@ -19,7 +19,8 @@ SRC			=	src/so_long.c src/draw_utils.c src/keyboard_processor.c \
 				utils/ft_lstdelone.c\
 				utils/ft_putnbr_fd.c\
 				src/map_utils.c src/position.c \
-				src/checker.c utils/ft_strchr.c
+				src/checker.c utils/ft_strchr.c \
+				utils/ft_str_cons_only.c
 OBJ 		= 	${SRC:.c=.o}
 
 %.o:%.c $(HEADER)

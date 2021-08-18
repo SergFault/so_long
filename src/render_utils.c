@@ -32,10 +32,10 @@ static int map_on_img(t_dataset *set)
 
 	rend = set->rend;
 	i = 0;
-	while (i < set->game->map_height)
+	while (i < set->game->map_width)
 	{
 		j = 0;
-		while (j < set->game->map_width)
+		while (j < set->game->map_height)
 		{
 				draw_title(set, get_img(rend, set->game->map[j][i]), i, j);
 			j++;

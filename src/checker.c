@@ -58,11 +58,11 @@ static int cnt_map_content(t_list *map, t_objs_number *objs)
 		line = (char *)map->content;
 		while(*line)
 		{
-			if (*line == 'C')
+			if (*line == COLL_CH)
 				objs->collectable++;
-			else if (*line == 'E')
+			else if (*line == EXIT_CH)
 				objs->exit++;
-			else if (*line == 'P')
+			else if (*line == HERO_CH)
 				objs->player++;
 			line++;
 		}
@@ -83,10 +83,37 @@ static int check_map_content(t_list *map)
 	return (1);
 }
 
+static int check_walls(t_list *map)
+{
+	char *line;
+
+	line = (char *)map->content;
+	if (!(ft_str_cons_only(line, WALL_CH)))
+			return (0);
+	map = map->next;
+	while(map->next)
+	{
+		line = (char *)map->content;
+		if (*(line++) != WALL_CH)
+			return (0);
+		while (*line)
+		{
+			if (*(line) != WALL_CH && (*(line + 1) == '\0'))
+				return (0);
+			line++;
+		}
+		map = map->next;
+	}
+	line = (char *)map->content;
+	if (!(ft_str_cons_only(line, WALL_CH)))
+		return (0);
+	return (1);
+}
 
 int validate_map(t_list *map)
 {
-	if (!(check_chars(map)) || !(check_rect(map)) || !(check_map_content(map)))
+	if (!(check_chars(map)) || !(check_rect(map)) || !(check_map_content(map)
+	) ||!(check_walls(map)))
 		return (0);
 	return (1);
 }

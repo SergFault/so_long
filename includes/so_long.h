@@ -35,7 +35,7 @@
 # define RIGHT 100
 # define DOWN 115
 # define TRANSPARENCY 0xFF000000
-#include <stdio.h>
+
 //#include "mlx_int.h"
 
 typedef struct s_list
@@ -154,5 +154,6 @@ int check_extension(char *argv);
 //int validate_map(t_list *map);
 char	*ft_strchr(const char *s, int c);
 int		validate_map(t_list *map);
+int ft_str_cons_only(char *str, char ch);
 
 #endif
