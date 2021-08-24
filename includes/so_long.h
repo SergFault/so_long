@@ -18,12 +18,12 @@
 # define EXIT_CH 'E'
 
 # define VALID_CHARS "01CEP"
-# define ARGS_ERROR "Number of arguments is incorrect.\n"
-# define MEM_ERR "Memory allocation error.\n"
-# define MAP_EXT_ERR "Wrong file extension.\n"
-# define BAD_FD "Bad file descriptor error.\n"
-# define MAP_VALID_ERR "Map validation error.\n"
-# define BAD_FILE "File read error.\n"
+# define ARGS_ERROR "Error\nNumber of arguments is incorrect.\n"
+# define MEM_ERR "Error\nMemory allocation error.\n"
+# define MAP_EXT_ERR "Error\nWrong file extension.\n"
+# define BAD_FD "Error\nBad file descriptor error.\n"
+# define MAP_VALID_ERR "Error\nMap validation error.\n"
+# define BAD_FILE "Error\nFile read error.\n"
 # define GRASS_PATH "./assets/grass.XPM"
 # define WALL_PATH "./assets/wall.XPM"
 # define COLL_PATH "./assets/weapon_sword_1.XPM"
@@ -155,5 +155,6 @@ int check_extension(char *argv);
 char	*ft_strchr(const char *s, int c);
 int		validate_map(t_list *map);
 int ft_str_cons_only(char *str, char ch);
+void free_env_obj(void *obj);
 
 #endif

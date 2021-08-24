@@ -45,7 +45,7 @@ t_list *scan_objects(t_game *game, char obj)
 		{
 			if (game->map[pos.y][pos.x] == obj)
 			{
-				env_objs = malloc(sizeof(t_env *));
+				env_objs = malloc(sizeof(t_env));
 				env_objs->pos.x = pos.x;
 				env_objs->pos.y = pos.y;
 				ft_lstadd_back(&objs, ft_lstnew(env_objs));

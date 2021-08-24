@@ -103,7 +103,6 @@ int map_init(t_game *game, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-
 	game->map = str_lines_to_arr(lines, game);
 	if (!(game->map))
 	{

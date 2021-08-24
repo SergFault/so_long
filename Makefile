@@ -1,6 +1,7 @@
+STD_MAP		=	map.ber
 NAME 		=	so_long
 CC			=	clang
-FLAGS		=	-Wall -Wextra -Werror -std=c99 -g  # -fsanitize=address
+FLAGS		=	-Wall -Wextra -Werror -std=c99 -g -fsanitize=leak
 MLX_DIR		=	external/minilibx
 LIB			=	-L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 INCLUDES	=	external/minilibx
@@ -23,15 +24,24 @@ SRC			=	src/so_long.c src/draw_utils.c src/keyboard_processor.c \
 				utils/ft_str_cons_only.c
 OBJ 		= 	${SRC:.c=.o}
 
-%.o:%.c $(HEADER)
-	$(CC) $(FLAGS) -g -I$(INCLUDES) -c $< -o $@
+%.o			:	%.c $(HEADER)
+				$(CC) $(FLAGS) -g -I$(INCLUDES) -c $< -o $@
 
-all:	$(NAME)
+all			:	$(NAME)
 
-clean:
-	rm -f $(OBJ)
+clean		:
+				rm -f $(OBJ)
 
-$(NAME):	$(OBJ)
+val			:	${NAME}
+				valgrind \
+				--leak-check=full \
+				--show-leak-kinds=all \
+				--track-origins=yes \
+				--verbose \
+				--log-file=valgrind-out.txt \
+				./${NAME} ${STD_MAP}
+
+$(NAME)		:	$(OBJ)
 				make -C external/minilibx
 				$(CC) $(FLAGS) -g -o $@ $^ $(LIB)
 

@@ -21,7 +21,7 @@ static int hero_cols(t_dataset *set)
 		if (coordinates_intersect(((t_env*)(iter)->content)->pos,
 								  her_pos))
 		{
-			ft_lstdelone(&set->game->collectibles, c, NULL);
+			ft_lstdelone(&set->game->collectibles, c, free_env_obj);
 			return (1);
 		}
 		else

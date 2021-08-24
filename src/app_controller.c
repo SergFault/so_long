@@ -9,6 +9,8 @@ int leave_game(t_dataset *set)
 	mlx_destroy_display(set->rend->mlx);
 	mlx_loop_end(set->rend->mlx);
 	free(set->rend->mlx);
+	ft_lstclear(&(set->game->collectibles), free_env_obj);
+	ft_lstclear(&(set->game->exits), free_env_obj);
 	free_data(set);
 	exit(0);
 }

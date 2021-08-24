@@ -23,3 +23,8 @@ void free_data(t_dataset *set)
 	free(set->game->map);
 	set->game->map = NULL;
 }
+
+void free_env_obj(void *obj)
+{
+	free(obj);
+}
