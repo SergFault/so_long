@@ -151,10 +151,11 @@ void check_collisions(t_dataset *set);
 void	ft_lstdelone(t_list **lst, int c, void (*del)(void*));
 void	ft_putnbr_fd(int n, int fd);
 int check_extension(char *argv);
-//int validate_map(t_list *map);
 char	*ft_strchr(const char *s, int c);
 int		validate_map(t_list *map);
 int ft_str_cons_only(char *str, char ch);
 void free_env_obj(void *obj);
+int	check_map_content(t_list *map);
+int		free_map(char **map, int index);
 
 #endif

@@ -1,12 +1,11 @@
 #include "../includes/so_long.h"
 
-
-static int gnl_map(int fd, t_list **lines)
+static int	gnl_map(int fd, t_list **lines)
 {
-	int read_flag;
-	char *line;
-	line = NULL;
+	int		read_flag;
+	char	*line;
 
+	line = NULL;
 	read_flag = 1;
 	while (read_flag)
 	{
@@ -24,31 +23,31 @@ static int gnl_map(int fd, t_list **lines)
 	return (1);
 }
 
-static void count_lines_and_chars(t_list *lines, t_game *game)
+static void	count_lines_and_chars(t_list *lines, t_game *game)
 {
-	int tmp;
+	int	tmp;
 
 	game->map_width = 0;
 	game->map_height = 0;
-	while(lines)
+	while (lines)
 	{
 		game->map_height += 1;
-		tmp = ft_strlen((char*)lines->content);
+		tmp = ft_strlen((char *)lines->content);
 		if (tmp > game->map_width)
 			game->map_width = tmp;
 		lines = lines->next;
 	}
 }
 
-static char **str_lines_to_arr(t_list *lines, t_game *game)
+static char	**str_lines_to_arr(t_list *lines, t_game *game)
 {
-	char **str_arr;
-	int tmp;
-	t_list *start;
+	char	**str_arr;
+	int		tmp;
+	t_list	*start;
 
 	start = lines;
 	count_lines_and_chars(lines, game);
-	str_arr = (char**) malloc((sizeof (char*)) * game->map_height);
+	str_arr = (char **) malloc((sizeof (char *)) * game->map_height);
 	if (str_arr == NULL)
 		ft_error_null(MEM_ERR);
 	tmp = 0;
@@ -64,17 +63,17 @@ static char **str_lines_to_arr(t_list *lines, t_game *game)
 		}
 		lines = lines->next;
 	}
-	return str_arr;
+	return (str_arr);
 }
 
-static t_list *lines_list(t_list *lines, char *path)
+static t_list	*lines_list(t_list *lines, char *path)
 {
-	int fd;
+	int	fd;
 
 	fd = open(path, O_RDONLY);
-	if 	((read(fd, NULL, 0) < 0) || fd < 0)
+	if ((read(fd, NULL, 0) < 0) || fd < 0)
 	{
-		ft_putstr_fd(BAD_FD, 2);
+		ft_putstr_fd(BAD_FD, STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	fd = gnl_map(fd, &lines);
@@ -83,32 +82,29 @@ static t_list *lines_list(t_list *lines, char *path)
 	return (lines);
 }
 
-int map_init(t_game *game, char **argv)
+int	map_init(t_game *game, char **argv)
 {
-	t_list *lines;
+	t_list	*lines;
 
 	lines = NULL;
-
 	if (!(check_extension(argv[1])))
 	{
 		ft_putstr_fd(MAP_EXT_ERR, STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-
 	lines = lines_list(lines, argv[1]);
-
 	if (!(validate_map(lines)))
+	{
+		ft_lstclear(&lines, ft_lst_del_str);
+		ft_putstr_fd(MAP_VALID_ERR, STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+	game->map = str_lines_to_arr(lines, game);
+	ft_lstclear(&lines, free_str_ptr);
+	if (!(game->map))
 	{
 		ft_putstr_fd(MAP_VALID_ERR, STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-
-	game->map = str_lines_to_arr(lines, game);
-	if (!(game->map))
-	{
-		ft_lstclear(&lines, free_str_ptr);
-		exit(EXIT_FAILURE);
-	}
-	ft_lstclear(&lines, free_str_ptr);
 	return (1);
 }

@@ -67,16 +67,13 @@ static void objs_on_img(t_dataset *set, t_list *objs, char type)
 int game_loop(t_dataset *set)
 {
 	(void)  set;
-	t_rend *rend = set->rend;
-
+	t_rend *r = set->rend;
 	check_collisions(set);
-
 	map_on_img(set);
 	objs_on_img(set, set->game->collectibles, COLL_CH);
 	objs_on_img(set, set->game->exits, EXIT_CH);
 	obj_on_img(set, HERO_CH);
-	mlx_put_image_to_window(rend->mlx, rend->win, (rend->main_img
-	.img),0, 0);
+	mlx_put_image_to_window(r->mlx, r->win, (r->main_img.img), 0, 0);
 	if (set->game->win)
 		leave_game(set);
 	return (1);

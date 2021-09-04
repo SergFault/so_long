@@ -2,6 +2,7 @@ STD_MAP		=	map.ber
 NAME 		=	so_long
 CC			=	clang
 FLAGS		=	-Wall -Wextra -Werror -std=c99 -g -fsanitize=leak
+-fsanitize=address
 MLX_DIR		=	external/minilibx
 LIB			=	-L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 INCLUDES	=	external/minilibx
@@ -21,7 +22,7 @@ SRC			=	src/so_long.c src/draw_utils.c src/keyboard_processor.c \
 				utils/ft_putnbr_fd.c\
 				src/map_utils.c src/position.c \
 				src/checker.c utils/ft_strchr.c \
-				utils/ft_str_cons_only.c
+				utils/ft_str_cons_only.c src/checker_map_content.c
 OBJ 		= 	${SRC:.c=.o}
 
 %.o			:	%.c $(HEADER)

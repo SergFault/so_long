@@ -42,5 +42,3 @@ void	img_on_img(t_img *img, t_img *s_img, int startX, int startY)
 		draw.x++;
 	}
 }
-
-

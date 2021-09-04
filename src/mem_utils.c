@@ -1,20 +1,9 @@
 #include "../includes/so_long.h"
 
-void set_img_null(t_img *img)
+void	free_data(t_dataset *set)
 {
-	img->img = NULL;
-	img->address = NULL;
-	img->bpp = 0;
-	img->line_length = 0;
-	img->endian = 0;
-	img->width = 0;
-	img->height = 0;
-}
+	int	cnt;
 
-
-void free_data(t_dataset *set)
-{
-	int cnt;
 	cnt = 0;
 	while (cnt < set->game->map_height)
 	{
@@ -24,7 +13,23 @@ void free_data(t_dataset *set)
 	set->game->map = NULL;
 }
 
-void free_env_obj(void *obj)
+void	free_env_obj(void *obj)
 {
 	free(obj);
+}
+
+int		free_map(char **map, int index)
+{
+	int c;
+
+	c = 0;
+	if (!map)
+		return 0;
+	while(c < index)
+	{
+		free(map[c]);
+		c++;
+	}
+	free(map);
+	return (1);
 }

@@ -1,6 +1,17 @@
 #include "../includes/so_long.h"
 
-void init_data(t_dataset *set)
+void	set_img_null(t_img *img)
+{
+	img->img = NULL;
+	img->address = NULL;
+	img->bpp = 0;
+	img->line_length = 0;
+	img->endian = 0;
+	img->width = 0;
+	img->height = 0;
+}
+
+void	init_data(t_dataset *set)
 {
 	set->rend->mlx = NULL;
 	set->rend->win = NULL;
@@ -15,11 +26,13 @@ void init_data(t_dataset *set)
 	set->game->map_width = 0;
 	set->game->map_height = 0;
 	set->game->map = NULL;
+	set->game->exits = NULL;
+	set->game->collectibles = NULL;
 }
 
-void game_init(t_game *game)
+void	game_init(t_game *game)
 {
-	t_coordinates pos;
+	t_coordinates	pos;
 
 	pos = get_pos(HERO_CH, game);
 	game->movements = 0;
