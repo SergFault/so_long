@@ -18,14 +18,14 @@ void	free_env_obj(void *obj)
 	free(obj);
 }
 
-int		free_map(char **map, int index)
+int	free_map(char **map, int index)
 {
-	int c;
+	int	c;
 
 	c = 0;
 	if (!map)
-		return 0;
-	while(c < index)
+		return (0);
+	while (c < index)
 	{
 		free(map[c]);
 		c++;

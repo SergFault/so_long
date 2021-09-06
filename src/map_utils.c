@@ -100,7 +100,7 @@ int	map_init(t_game *game, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	game->map = str_lines_to_arr(lines, game);
-	ft_lstclear(&lines, free_str_ptr);
+	ft_lstclear(&lines, ft_lst_del_str);
 	if (!(game->map))
 	{
 		ft_putstr_fd(MAP_VALID_ERR, STDERR_FILENO);

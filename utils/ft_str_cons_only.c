@@ -1,10 +1,10 @@
 #include "../includes/so_long.h"
 
-int ft_str_cons_only(char *str, char ch)
+int	ft_str_cons_only(char *str, char ch)
 {
-	while(*str)
+	while (*str)
 	{
-		if(*str!=ch)
+		if (*str != ch)
 			return (0);
 		str++;
 	}

@@ -1,6 +1,6 @@
 #include "../includes/so_long.h"
 
-t_img *get_img(t_rend *rend,char ch)
+t_img	*get_img(t_rend *rend, char ch)
 {
 	if (ch == WALL_CH)
 		return (&rend->wall);
@@ -15,20 +15,11 @@ t_img *get_img(t_rend *rend,char ch)
 	return (&rend->floor);
 }
 
-static void draw_title(t_dataset *set, t_img *ti_img, int x, int y)
+static int	map_on_img(t_dataset *set)
 {
-	img_on_img(&set->rend->main_img, ti_img,
-			   x *
-			   MODEL_SIZE,
-			   y *
-			   MODEL_SIZE);
-}
-
-static int map_on_img(t_dataset *set)
-{
-	int i;
-	int j;
-	t_rend *rend;
+	int		i;
+	int		j;
+	t_rend	*rend;
 
 	rend = set->rend;
 	i = 0;
@@ -37,7 +28,10 @@ static int map_on_img(t_dataset *set)
 		j = 0;
 		while (j < set->game->map_height)
 		{
-				draw_title(set, get_img(rend, set->game->map[j][i]), i, j);
+			img_on_img(&set->rend->main_img,
+				get_img(rend, set->game->map[j][i]),
+				i * MODEL_SIZE,
+				j * MODEL_SIZE);
 			j++;
 		}
 		i++;
@@ -45,29 +39,37 @@ static int map_on_img(t_dataset *set)
 	return (1);
 }
 
-static void obj_on_img(t_dataset *set, char obj)
+static void	obj_on_img(t_dataset *set, char obj)
 {
-	t_coordinates pos;
+	t_coordinates	pos;
 
 	if (obj == HERO_CH)
 		pos = set->game->hero_pos;
-	draw_title(set, get_img(set->rend, obj), pos.x, pos.y);
+	img_on_img(&set->rend->main_img, get_img(set->rend, obj),
+		pos.x * MODEL_SIZE,
+		pos.y * MODEL_SIZE);
 }
 
-static void objs_on_img(t_dataset *set, t_list *objs, char type)
+static void	objs_on_img(t_dataset *set, t_list *objs, char type)
 {
-	while(objs)
+	t_env	*env;
+
+	while (objs)
 	{
-		t_env *env = (t_env*)objs->content;
-		draw_title(set, get_img(set->rend, type), env->pos.x, env->pos.y);
+		env = (t_env *)objs->content;
+		img_on_img(&set->rend->main_img, get_img(set->rend, type),
+			env->pos.x * MODEL_SIZE,
+			env->pos.y * MODEL_SIZE);
 		objs = objs->next;
 	}
 }
 
-int game_loop(t_dataset *set)
+int	game_loop(t_dataset *set)
 {
-	(void)  set;
-	t_rend *r = set->rend;
+	t_rend	*r;
+
+	(void) set;
+	r = set->rend;
 	check_collisions(set);
 	map_on_img(set);
 	objs_on_img(set, set->game->collectibles, COLL_CH);

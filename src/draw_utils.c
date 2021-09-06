@@ -1,23 +1,21 @@
 #include "../includes/so_long.h"
 
-void put_pixel(t_img *data, int x, int y, unsigned int color)
+void	put_pixel(t_img *data, int x, int y, unsigned int color)
 {
-	char *dst;
+	char	*dst;
 
 	if (color != TRANSPARENCY)
 	{
-		dst = data->address + (y * data->line_length + x * (data->bpp/8));
-		*(unsigned int*)dst = color;
+		dst = data->address + (y * data->line_length + x * (data->bpp / 8));
+		*(unsigned int *)dst = color;
 	}
-
 }
 
-int get_pixel(t_img *t_img, int s_x, int s_y)
+int	get_pixel(t_img *t_img, int s_x, int s_y)
 {
-	return (*(int *)(t_img->address + (s_y * t_img->line_length + s_x *
-	(t_img->bpp/8))));
+	return (*(int *)(t_img->address + (s_y * t_img->line_length + s_x
+			 * (t_img->bpp / 8))));
 }
-
 
 void	img_on_img(t_img *img, t_img *s_img, int startX, int startY)
 {
