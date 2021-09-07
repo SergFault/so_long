@@ -7,7 +7,12 @@ int	leave_game(t_dataset *set)
 	mlx_destroy_image(set->rend->mlx, set->rend->wall.img);
 	mlx_destroy_image(set->rend->mlx, set->rend->collectible.img);
 	mlx_destroy_image(set->rend->mlx, set->rend->exit.img);
-	mlx_destroy_image(set->rend->mlx, set->rend->hero.img);
+	mlx_destroy_image(set->rend->mlx, set->rend->hero0.img);
+	mlx_destroy_image(set->rend->mlx, set->rend->hero1.img);
+	mlx_destroy_image(set->rend->mlx, set->rend->hero2.img);
+	mlx_destroy_image(set->rend->mlx, set->rend->hero3.img);
+	mlx_destroy_image(set->rend->mlx, set->rend->hero4.img);
+	mlx_destroy_image(set->rend->mlx, set->rend->hero5.img);
 	mlx_destroy_window(set->rend->mlx, set->rend->win);
 	mlx_destroy_display(set->rend->mlx);
 	mlx_loop_end(set->rend->mlx);

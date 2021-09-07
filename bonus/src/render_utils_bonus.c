@@ -1,13 +1,15 @@
 #include "../../includes/so_long_bonus.h"
 
-t_img	*get_img(t_rend *rend, char ch)
+t_img	*get_img(t_rend *rend, char ch, int time)
 {
 	if (ch == WALL_CH)
 		return (&rend->wall);
 	if (ch == FLOOR_CH)
 		return (&rend->floor);
 	if (ch == HERO_CH)
-		return (&rend->hero);
+		return get_hero_image(rend, time);
+	if (ch == ENEMY_CH)
+		return get_enemy_image(rend, time);
 	if (ch == COLL_CH)
 		return (&rend->collectible);
 	if (ch == EXIT_CH)
@@ -29,7 +31,7 @@ static int	map_on_img(t_dataset *set)
 		while (j < set->game->map_height)
 		{
 			img_on_img(&set->rend->main_img,
-				get_img(rend, set->game->map[j][i]),
+				get_img(rend, set->game->map[j][i], set->game->time),
 				i * MODEL_SIZE,
 				j * MODEL_SIZE);
 			j++;
@@ -45,9 +47,9 @@ static void	obj_on_img(t_dataset *set, char obj)
 
 	if (obj == HERO_CH)
 		pos = set->game->hero_pos;
-	img_on_img(&set->rend->main_img, get_img(set->rend, obj),
-		pos.x * MODEL_SIZE,
-		pos.y * MODEL_SIZE);
+	img_on_img(&set->rend->main_img, get_img(set->rend, obj, set->game->time),
+	pos.x * MODEL_SIZE,
+	pos.y * MODEL_SIZE);
 }
 
 static void	objs_on_img(t_dataset *set, t_list *objs, char type)
@@ -57,7 +59,7 @@ static void	objs_on_img(t_dataset *set, t_list *objs, char type)
 	while (objs)
 	{
 		env = (t_env *)objs->content;
-		img_on_img(&set->rend->main_img, get_img(set->rend, type),
+		img_on_img(&set->rend->main_img, get_img(set->rend, type, set->game->time),
 			env->pos.x * MODEL_SIZE,
 			env->pos.y * MODEL_SIZE);
 		objs = objs->next;
@@ -69,9 +71,13 @@ int	game_loop(t_dataset *set)
 	t_rend	*r;
 
 	(void) set;
+	if (set->game->time == 6 *TICK)
+		set->game->time =  0;
+	set->game->time++;
 	r = set->rend;
 	check_collisions(set);
 	map_on_img(set);
+	objs_on_img(set, set->game->enemies, ENEMY_CH);
 	objs_on_img(set, set->game->collectibles, COLL_CH);
 	objs_on_img(set, set->game->exits, EXIT_CH);
 	obj_on_img(set, HERO_CH);

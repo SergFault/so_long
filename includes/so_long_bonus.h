@@ -11,12 +11,14 @@
 # define BUFFER_SIZE 40
 # define P_SEED 2346
 # define ENEMIES_NUM 4
+# define TICK 20
 
 # define HERO_CH 'P'
 # define WALL_CH '1'
 # define FLOOR_CH '0'
 # define COLL_CH 'C'
 # define EXIT_CH 'E'
+# define ENEMY_CH 'H'
 
 # define VALID_CHARS "01CEP"
 # define ARGS_ERROR "Error\nNumber of arguments is incorrect.\n"
@@ -28,7 +30,19 @@
 # define GRASS_PATH "./assets/grass.XPM"
 # define WALL_PATH "./assets/wall.XPM"
 # define COLL_PATH "./assets/weapon_sword_1.XPM"
-# define HERO "./assets/knight_run_anim_f0.XPM"
+# define HERO0 "./assets/knight_run_anim_f0.XPM"
+# define HERO1 "./assets/knight_run_anim_f1.XPM"
+# define HERO2 "./assets/knight_run_anim_f2.XPM"
+# define HERO3 "./assets/knight_run_anim_f3.XPM"
+# define HERO4 "./assets/knight_run_anim_f4.XPM"
+# define HERO5 "./assets/knight_run_anim_f5.XPM"
+# define ENEMY0 "./assets/goblin_run_anim_f0.XPM"
+# define ENEMY1 "./assets/goblin_run_anim_f1.XPM"
+# define ENEMY2 "./assets/goblin_run_anim_f2.XPM"
+# define ENEMY3 "./assets/goblin_run_anim_f3.XPM"
+# define ENEMY4 "./assets/goblin_run_anim_f4.XPM"
+# define ENEMY5 "./assets/goblin_run_anim_f5.XPM"
+
 # define EXIT_PATH "./assets/exit.XPM"
 # define ESC 65307
 # define LEFT 97
@@ -70,7 +84,18 @@ typedef struct s_rend
 	t_img	wall;
 	t_img	collectible;
 	t_img	exit;
-	t_img	hero;
+	t_img	hero0;
+	t_img	hero1;
+	t_img	hero2;
+	t_img	hero3;
+	t_img	hero4;
+	t_img	hero5;
+	t_img	enemy0;
+	t_img	enemy1;
+	t_img	enemy2;
+	t_img	enemy3;
+	t_img	enemy4;
+	t_img	enemy5;
 }				t_rend;
 
 typedef struct s_coordinates
@@ -85,6 +110,7 @@ typedef struct s_env
 }				t_env;
 
 typedef struct s_game{
+	int				time;
 	t_coordinates	hero_pos;
 	int				map_width;
 	int				map_height;
@@ -154,5 +180,7 @@ void			free_env_obj(void *obj);
 int				check_map_content(t_list *map);
 int				free_map(char **map, int index);
 void			enemy_init(t_dataset *set);
+t_img			*get_hero_image(t_rend *rend, int time);
+t_img			*get_enemy_image(t_rend *rend, int time);
 
 #endif

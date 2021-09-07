@@ -20,7 +20,18 @@ void	init_data(t_dataset *set)
 	set_img_null(&set->rend->floor);
 	set_img_null(&set->rend->collectible);
 	set_img_null(&set->rend->exit);
-	set_img_null(&set->rend->hero);
+	set_img_null(&set->rend->hero0);
+	set_img_null(&set->rend->hero1);
+	set_img_null(&set->rend->hero2);
+	set_img_null(&set->rend->hero3);
+	set_img_null(&set->rend->hero4);
+	set_img_null(&set->rend->hero5);
+	set_img_null(&set->rend->enemy0);
+	set_img_null(&set->rend->enemy1);
+	set_img_null(&set->rend->enemy2);
+	set_img_null(&set->rend->enemy3);
+	set_img_null(&set->rend->enemy4);
+	set_img_null(&set->rend->enemy5);
 	set->game->hero_pos.x = 0;
 	set->game->hero_pos.y = 0;
 	set->game->map_width = 0;
@@ -34,6 +45,7 @@ void	game_init(t_game *game)
 {
 	t_coordinates	pos;
 
+	game->time =  0;
 	pos = get_pos(HERO_CH, game);
 	game->movements = 0;
 	game->win = 0;

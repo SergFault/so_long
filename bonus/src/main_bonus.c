@@ -26,7 +26,18 @@ static int	rend_init(t_rend *rend, t_game *game)
 	init_model(rend->mlx, &rend->collectible, COLL_PATH);
 	init_model(rend->mlx, &rend->floor, GRASS_PATH);
 	init_model(rend->mlx, &rend->wall, WALL_PATH);
-	init_model(rend->mlx, &rend->hero, HERO);
+	init_model(rend->mlx, &rend->hero0, HERO0);
+	init_model(rend->mlx, &rend->hero1, HERO1);
+	init_model(rend->mlx, &rend->hero2, HERO2);
+	init_model(rend->mlx, &rend->hero3, HERO3);
+	init_model(rend->mlx, &rend->hero4, HERO4);
+	init_model(rend->mlx, &rend->hero5, HERO5);
+	init_model(rend->mlx, &rend->enemy0, ENEMY0);
+	init_model(rend->mlx, &rend->enemy1, ENEMY1);
+	init_model(rend->mlx, &rend->enemy2, ENEMY2);
+	init_model(rend->mlx, &rend->enemy3, ENEMY3);
+	init_model(rend->mlx, &rend->enemy4, ENEMY4);
+	init_model(rend->mlx, &rend->enemy5, ENEMY5);
 	return (1);
 }
 
