@@ -50,5 +50,6 @@ static int	hero_exit(t_dataset *set)
 void	check_collisions(t_dataset *set)
 {
 	hero_cols(set);
+	hero_enemies(set);
 	hero_exit(set);
 }

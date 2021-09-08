@@ -24,7 +24,9 @@ SRC			=	src/draw_utils.c src/keyboard_processor.c \
 				utils/ft_str_cons_only.c src/checker_map_content.c \
 				src/init.c src/main.c src/render_utils.c
 SRC_B		=	$(subst .c,_bonus.c,$(addprefix bonus/, ${SRC}))
-SRC_B		+=	bonus/src/dao_img.c
+SRC_B		+=	bonus/src/dao_img.c bonus/src/enemy_processor_bonus.c \
+				bonus/src/random_bonus.c \
+				bonus/src/print_status_bonus.c
 OBJS		= 	${SRC:.c=.o}
 OBJ_M		=	${SRC_M:.c=.o}
 OBJ_B		=	${SRC_B:.c=.o}

@@ -1,6 +1,6 @@
 #include "../includes/so_long.h"
 
-static int	check_wall(int x, int y, char **map)
+int	check_wall(int x, int y, char **map)
 {
 	if (map[y][x] == WALL_CH)
 		return (1);

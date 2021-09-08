@@ -77,12 +77,14 @@ int	game_loop(t_dataset *set)
 	r = set->rend;
 	check_collisions(set);
 	map_on_img(set);
+	move_enemies(set->game->enemies, set->game);
 	objs_on_img(set, set->game->enemies, ENEMY_CH);
 	objs_on_img(set, set->game->collectibles, COLL_CH);
 	objs_on_img(set, set->game->exits, EXIT_CH);
 	obj_on_img(set, HERO_CH);
 	mlx_put_image_to_window(r->mlx, r->win, (r->main_img.img), 0, 0);
+	print_status(set);
 	if (set->game->win)
-		leave_game(set);
+		leave_game(set, WIN);
 	return (1);
 }

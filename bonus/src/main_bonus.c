@@ -11,17 +11,8 @@ static int	init_model(void *mlx, t_img *img, char *path)
 	return (1);
 }
 
-static int	rend_init(t_rend *rend, t_game *game)
+static void	rend_init_models(t_rend *rend)
 {
-	rend->mlx = mlx_init();
-	rend->win = mlx_new_window(rend->mlx, game->map_width * MODEL_SIZE,
-			game->map_height * MODEL_SIZE, "SO_LONG");
-	rend->main_img.img = mlx_new_image(rend->mlx, game->map_width * MODEL_SIZE,
-			game->map_height * MODEL_SIZE);
-	rend->main_img.address = mlx_get_data_addr(rend->main_img.img,
-			&rend->main_img.bpp,
-			&rend->main_img.line_length,
-			&rend->main_img.endian);
 	init_model(rend->mlx, &rend->exit, EXIT_PATH);
 	init_model(rend->mlx, &rend->collectible, COLL_PATH);
 	init_model(rend->mlx, &rend->floor, GRASS_PATH);
@@ -38,6 +29,20 @@ static int	rend_init(t_rend *rend, t_game *game)
 	init_model(rend->mlx, &rend->enemy3, ENEMY3);
 	init_model(rend->mlx, &rend->enemy4, ENEMY4);
 	init_model(rend->mlx, &rend->enemy5, ENEMY5);
+}
+
+static int	rend_init(t_rend *rend, t_game *game)
+{
+	rend->mlx = mlx_init();
+	rend->win = mlx_new_window(rend->mlx, game->map_width * MODEL_SIZE,
+			game->map_height * MODEL_SIZE, "SO_LONG");
+	rend->main_img.img = mlx_new_image(rend->mlx, game->map_width * MODEL_SIZE,
+			game->map_height * MODEL_SIZE);
+	rend->main_img.address = mlx_get_data_addr(rend->main_img.img,
+			&rend->main_img.bpp,
+			&rend->main_img.line_length,
+			&rend->main_img.endian);
+	rend_init_models(rend);
 	return (1);
 }
 

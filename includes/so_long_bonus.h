@@ -9,10 +9,12 @@
 
 # define MODEL_SIZE 64
 # define BUFFER_SIZE 40
-# define P_SEED 2346
-# define ENEMIES_NUM 4
-# define TICK 20
+# define ENEMIES_NUM 5
+# define TICK 10
 
+# define WIN 1
+# define LOOSE 0
+# define LEAVE 2
 # define HERO_CH 'P'
 # define WALL_CH '1'
 # define FLOOR_CH '0'
@@ -20,6 +22,9 @@
 # define EXIT_CH 'E'
 # define ENEMY_CH 'H'
 
+# define WIN_MSG "You`ve won!"
+# define LOOSE_MSG "You`ve lost. :< Try again!"
+# define LEAVE_MSG "You`ve left the game. :< Come back"
 # define VALID_CHARS "01CEP"
 # define ARGS_ERROR "Error\nNumber of arguments is incorrect.\n"
 # define MEM_ERR "Error\nMemory allocation error.\n"
@@ -50,6 +55,9 @@
 # define RIGHT 100
 # define DOWN 115
 # define TRANSPARENCY 0xFF000000
+# define RED 0x00FF0000
+# define DARK_RED 0x005F0000
+# define DARK_GREEN 0x00005F00
 
 typedef struct s_list
 {
@@ -65,7 +73,8 @@ typedef struct s_objs_number
 	int	player;
 }				t_objs_number;
 
-typedef struct s_img{
+typedef struct s_img
+{
 	void	*img;
 	char	*address;
 	int		bpp;
@@ -111,6 +120,7 @@ typedef struct s_env
 
 typedef struct s_game{
 	int				time;
+	long 			seed;
 	t_coordinates	hero_pos;
 	int				map_width;
 	int				map_height;
@@ -142,7 +152,7 @@ typedef struct s_dataset{
 
 void			put_pixel(t_img *data, int x, int y, unsigned int color);
 int				process_key(int key, t_dataset *set);
-int				leave_game(t_dataset *set);
+int				leave_game(t_dataset *set, int status);
 void			img_on_img(t_img *img, t_img *s_img, int startX, int startY);
 int				map_init(t_game *game, char **argv);
 void			ft_putchar_fd(char c, int fd);
@@ -161,12 +171,11 @@ void			free_str_array(char **str_arr, int index);
 void			*ft_error_null(char *message);
 int				game_loop(t_dataset *set);
 void			init_data(t_dataset *set);
-void			set_img_null(t_img *img);
 void			free_data(t_dataset *set);
-int				leave_game(t_dataset *set);
+int				leave_game(t_dataset *set, int status);
 void			game_init(t_game *game);
 t_coordinates	get_pos(char obj, t_game *game);
-void			move(int direction, t_coordinates *pos, t_game *game);
+void			move(int direction, t_coordinates *pos, t_dataset *set);
 t_list			*scan_objects(t_game *game, char obj);
 int				game_loop(t_dataset *set);
 void			check_collisions(t_dataset *set);
@@ -182,5 +191,10 @@ int				free_map(char **map, int index);
 void			enemy_init(t_dataset *set);
 t_img			*get_hero_image(t_rend *rend, int time);
 t_img			*get_enemy_image(t_rend *rend, int time);
+void			move_enemies(t_list *enemies, t_game *game);
+int				check_wall(int x, int y, char **map);
+int				random_g(long *seed, int lim);
+void			print_status(t_dataset *set);
+void			print_end(t_dataset *set, int c, char *message);
 
 #endif
