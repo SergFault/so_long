@@ -9,8 +9,8 @@
 
 # define MODEL_SIZE 64
 # define BUFFER_SIZE 40
-# define ENEMIES_NUM 5
-# define TICK 10
+# define ENEMIES_NUM 15
+# define TICK 7
 
 # define WIN 1
 # define LOOSE 0
@@ -24,7 +24,7 @@
 
 # define WIN_MSG "You`ve won!"
 # define LOOSE_MSG "You`ve lost. :< Try again!"
-# define LEAVE_MSG "You`ve left the game. :< Come back"
+# define LEAVE_MSG "You`ve left this awesome game. :o Come back"
 # define VALID_CHARS "01CEP"
 # define ARGS_ERROR "Error\nNumber of arguments is incorrect.\n"
 # define MEM_ERR "Error\nMemory allocation error.\n"
@@ -58,6 +58,7 @@
 # define RED 0x00FF0000
 # define DARK_RED 0x005F0000
 # define DARK_GREEN 0x00005F00
+# define WHITE 0xFFFFFFFF
 
 typedef struct s_list
 {
@@ -196,5 +197,6 @@ int				check_wall(int x, int y, char **map);
 int				random_g(long *seed, int lim);
 void			print_status(t_dataset *set);
 void			print_end(t_dataset *set, int c, char *message);
+t_coordinates	*coordinates_init(t_coordinates *pos_p, int x, int y);
 
 #endif

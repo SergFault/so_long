@@ -49,7 +49,7 @@ static void	print_central(t_dataset *set, char *msg)
 
 	x = set->game->map_width * MODEL_SIZE / 2 - ft_strlen(msg) / 2;
 	y = set->game->map_height * MODEL_SIZE / 2;
-	mlx_string_put(set->rend->mlx, set->rend->win, x, y, 0x00000000, msg);
+	mlx_string_put(set->rend->mlx, set->rend->win, x, y, WHITE, msg);
 }
 
 void	print_end(t_dataset *set, int c, char *message)
@@ -74,9 +74,9 @@ void	print_end(t_dataset *set, int c, char *message)
 			}
 			height--;
 		}
-		print_central(set, message);
 		mlx_put_image_to_window(r->mlx, r->win, (r->main_img.img), 0, 0);
+		print_central(set, message);
 	}
-	print_central(set, message);
 	mlx_put_image_to_window(r->mlx, r->win, (r->main_img.img), 0, 0);
+	print_central(set, message);
 }

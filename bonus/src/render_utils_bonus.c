@@ -7,9 +7,9 @@ t_img	*get_img(t_rend *rend, char ch, int time)
 	if (ch == FLOOR_CH)
 		return (&rend->floor);
 	if (ch == HERO_CH)
-		return get_hero_image(rend, time);
+		return (get_hero_image(rend, time));
 	if (ch == ENEMY_CH)
-		return get_enemy_image(rend, time);
+		return (get_enemy_image(rend, time));
 	if (ch == COLL_CH)
 		return (&rend->collectible);
 	if (ch == EXIT_CH)
@@ -48,8 +48,8 @@ static void	obj_on_img(t_dataset *set, char obj)
 	if (obj == HERO_CH)
 		pos = set->game->hero_pos;
 	img_on_img(&set->rend->main_img, get_img(set->rend, obj, set->game->time),
-	pos.x * MODEL_SIZE,
-	pos.y * MODEL_SIZE);
+		pos.x * MODEL_SIZE,
+		pos.y * MODEL_SIZE);
 }
 
 static void	objs_on_img(t_dataset *set, t_list *objs, char type)
@@ -59,7 +59,8 @@ static void	objs_on_img(t_dataset *set, t_list *objs, char type)
 	while (objs)
 	{
 		env = (t_env *)objs->content;
-		img_on_img(&set->rend->main_img, get_img(set->rend, type, set->game->time),
+		img_on_img(&set->rend->main_img, get_img(set->rend, type,
+				set->game->time),
 			env->pos.x * MODEL_SIZE,
 			env->pos.y * MODEL_SIZE);
 		objs = objs->next;
@@ -71,8 +72,8 @@ int	game_loop(t_dataset *set)
 	t_rend	*r;
 
 	(void) set;
-	if (set->game->time == 6 *TICK)
-		set->game->time =  0;
+	if (set->game->time == 6 * TICK)
+		set->game->time = 0;
 	set->game->time++;
 	r = set->rend;
 	check_collisions(set);
