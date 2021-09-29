@@ -36,6 +36,7 @@ void	init_data(t_dataset *set)
 {
 	set->rend->mlx = NULL;
 	set->rend->win = NULL;
+	set->game->enemies = NULL;
 	img_init(set);
 	set->game->hero_pos.x = 0;
 	set->game->hero_pos.y = 0;
@@ -51,7 +52,6 @@ void	game_init(t_game *game)
 	t_coordinates	pos;
 
 	game->time = 0;
-	game->seed = 0;
 	pos = get_pos(HERO_CH, game);
 	game->movements = 0;
 	game->win = 0;

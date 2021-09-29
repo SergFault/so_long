@@ -13,6 +13,12 @@ static void	destroy_images(t_rend *rend)
 	mlx_destroy_image(rend->mlx, rend->hero3.img);
 	mlx_destroy_image(rend->mlx, rend->hero4.img);
 	mlx_destroy_image(rend->mlx, rend->hero5.img);
+	mlx_destroy_image(rend->mlx, rend->enemy0.img);
+	mlx_destroy_image(rend->mlx, rend->enemy1.img);
+	mlx_destroy_image(rend->mlx, rend->enemy2.img);
+	mlx_destroy_image(rend->mlx, rend->enemy3.img);
+	mlx_destroy_image(rend->mlx, rend->enemy4.img);
+	mlx_destroy_image(rend->mlx, rend->enemy5.img);
 }
 
 int	leave_game(t_dataset *set, int status)

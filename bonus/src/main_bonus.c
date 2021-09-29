@@ -48,6 +48,7 @@ static int	rend_init(t_rend *rend, t_game *game)
 
 static int	init(t_dataset *set, char **argv)
 {
+	set->game->seed_g = 300;
 	init_data(set);
 	map_init(set->game, argv);
 	enemy_init(set);

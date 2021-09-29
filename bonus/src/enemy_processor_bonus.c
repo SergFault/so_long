@@ -26,13 +26,13 @@ void	move_enemies(t_list *enemies, t_game *game)
 	{
 		while (enemies)
 		{
-			if (random_g(&game->seed, 4) == 1)
+			if (random_g(&game->seed_g, 4) == 1)
 				move_enemy(UP, enemies->content, game);
-			else if (random_g(&game->seed, 4) == 2)
+			else if (random_g(&game->seed_g, 4) == 2)
 				move_enemy(LEFT, enemies->content, game);
-			else if (random_g(&game->seed, 4) == 3)
+			else if (random_g(&game->seed_g, 4) == 3)
 				move_enemy(DOWN, enemies->content, game);
-			else if (random_g(&game->seed, 4) == 4)
+			else if (random_g(&game->seed_g, 4) == 4)
 				move_enemy(RIGHT, enemies->content, game);
 			enemies = enemies->next;
 		}
@@ -43,21 +43,27 @@ static t_coordinates	get_rnd_space(t_dataset *set, int height, int width,
 								   t_coordinates *coord)
 {
 	int				i;
-	int				j;
+	int				j, s;
 	t_coordinates	hero_pos;
+	i = 0;
+	j = 0;
+	s = 20;
+
+	(void)height;
+	(void)width;
 
 	hero_pos = set->game->hero_pos;
 	while (coord->x == 0)
 	{
-		i = (int)random_g(&(set->game->seed), height - 1);
-		j = (int)random_g(&(set->game->seed), width - 1);
+		i = random_g(&(set->game->seed_g), height - 1);
+		j = random_g(&(set->game->seed_g), width - 1);
 		while (i)
 		{
 			while (j)
 			{
 				if ((set->game->map[i][j] == FLOOR_CH && i != hero_pos.y)
 					&& j != hero_pos.x
-					&& !(i == hero_pos.x && j == hero_pos.y))
+					&& !(i == hero_pos.y && j == hero_pos.x))
 					return (*(coordinates_init(coord, j, i)));
 				j--;
 			}
@@ -75,6 +81,7 @@ void	enemy_init(t_dataset *set)
 	t_coordinates	temp_coord;
 
 	c = ENEMIES_NUM;
+	lst = NULL;
 	while (c)
 	{
 		temp_coord.x = 0;

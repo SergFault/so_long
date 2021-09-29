@@ -39,7 +39,8 @@ void	print_status(t_dataset *set)
 	}
 	else
 		mlx_string_put(set->rend->mlx, set->rend->win, 60, 20, RED,
-			itoa(set->game->movements));
+					   str_num);
+	free(str_num);
 }
 
 static void	print_central(t_dataset *set, char *msg)

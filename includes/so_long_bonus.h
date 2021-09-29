@@ -9,7 +9,7 @@
 
 # define MODEL_SIZE 64
 # define BUFFER_SIZE 40
-# define ENEMIES_NUM 15
+# define ENEMIES_NUM 3
 # define TICK 7
 
 # define WIN 1
@@ -121,7 +121,7 @@ typedef struct s_env
 
 typedef struct s_game{
 	int				time;
-	long 			seed;
+	int 			seed_g;
 	t_coordinates	hero_pos;
 	int				map_width;
 	int				map_height;
@@ -194,7 +194,7 @@ t_img			*get_hero_image(t_rend *rend, int time);
 t_img			*get_enemy_image(t_rend *rend, int time);
 void			move_enemies(t_list *enemies, t_game *game);
 int				check_wall(int x, int y, char **map);
-int				random_g(long *seed, int lim);
+int				random_g(int *seed, int lim);
 void			print_status(t_dataset *set);
 void			print_end(t_dataset *set, int c, char *message);
 t_coordinates	*coordinates_init(t_coordinates *pos_p, int x, int y);
