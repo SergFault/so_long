@@ -6,12 +6,12 @@
 /*   By: sergey <sergey@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 17:26:22 by sergey            #+#    #+#             */
-/*   Updated: 2021/09/29 17:26:22 by sergey           ###   ########.fr       */
+/*   Updated: 2021/09/29 17:30:34 by sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include "mlx.h"
 # include <unistd.h>
@@ -21,7 +21,7 @@
 
 # define MODEL_SIZE 64
 # define BUFFER_SIZE 40
-# define ENEMIES_NUM 3
+# define ENEMIES_NUM 30
 # define TICK 7
 
 # define WIN 1
@@ -133,7 +133,7 @@ typedef struct s_env
 
 typedef struct s_game{
 	int				time;
-	int 			seed_g;
+	int				seed_g;
 	t_coordinates	hero_pos;
 	int				map_width;
 	int				map_height;

@@ -6,7 +6,7 @@
 /*   By: sergey <sergey@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 17:24:15 by sergey            #+#    #+#             */
-/*   Updated: 2021/09/29 17:24:15 by sergey           ###   ########.fr       */
+/*   Updated: 2021/09/29 17:33:40 by sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,8 @@ static t_coordinates	get_rnd_space(t_dataset *set, int height, int width,
 								   t_coordinates *coord)
 {
 	int				i;
-	int				j, s;
+	int				j;
 	t_coordinates	hero_pos;
-	i = 0;
-	j = 0;
-	s = 20;
-
-	(void)height;
-	(void)width;
 
 	hero_pos = set->game->hero_pos;
 	while (coord->x == 0)

@@ -6,7 +6,7 @@
 /*   By: sergey <sergey@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 17:25:04 by sergey            #+#    #+#             */
-/*   Updated: 2021/09/29 17:25:04 by sergey           ###   ########.fr       */
+/*   Updated: 2021/09/29 17:26:46 by sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 int	random_g(int *seed, int lim)
 {
-	int i = 0;
-
 	if (*seed > 1000000)
 		*seed = 300;
 	*seed = (*seed * 32719 + 3) % 32749;
-	i = ((*seed % lim) + 1);
-	return i;
+	return ((*seed % lim) + 1);
 }

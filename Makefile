@@ -71,12 +71,12 @@ val:		${NAME}
 			./${NAME} ${SMALL_MAP}
 
 val_bonus:	bonus
-			valgrind \
-			--leak-check=full \
-			--show-leak-kinds=all \
-			--track-origins=yes \
-			--verbose \
-			--log-file=valgrind-out.txt \
+				valgrind \
+				--leak-check=full \
+				--show-leak-kinds=all \
+				--track-origins=yes \
+				--verbose \
+				--log-file=valgrind-out.txt \
 			./${NAME} ${SMALL_MAP}
 
 .PHONY:		val re all clean fclean bonus val_bonus

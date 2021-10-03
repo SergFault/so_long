@@ -6,7 +6,7 @@
 /*   By: sergey <sergey@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 17:24:59 by sergey            #+#    #+#             */
-/*   Updated: 2021/09/29 17:24:59 by sergey           ###   ########.fr       */
+/*   Updated: 2021/09/29 17:26:46 by sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void	print_status(t_dataset *set)
 		ft_putstr_fd(MEM_ERR, STDERR_FILENO);
 	}
 	else
-		mlx_string_put(set->rend->mlx, set->rend->win, 60, 20, RED,
-					   str_num);
+		mlx_string_put(set->rend->mlx, set->rend->win, 60, 20, RED, str_num);
 	free(str_num);
 }
 
