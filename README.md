@@ -10,6 +10,7 @@ Requires xorg, x11 and zlib.
     
 1) Install required libraries:
 
+
     sudo apt-get update && sudo apt-get install xorg libxext-dev zlib1g-dev
 2)  Build executable file with command
 
