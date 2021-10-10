@@ -14,14 +14,6 @@
 
 int	leave_game(t_dataset *set)
 {
-	mlx_destroy_image(set->rend->mlx, set->rend->main_img.img);
-	mlx_destroy_image(set->rend->mlx, set->rend->floor.img);
-	mlx_destroy_image(set->rend->mlx, set->rend->wall.img);
-	mlx_destroy_image(set->rend->mlx, set->rend->collectible.img);
-	mlx_destroy_image(set->rend->mlx, set->rend->exit.img);
-	mlx_destroy_image(set->rend->mlx, set->rend->hero.img);
-	mlx_destroy_window(set->rend->mlx, set->rend->win);
-	free(set->rend->mlx);
 	ft_lstclear(&(set->game->collectibles), free_env_obj);
 	ft_lstclear(&(set->game->exits), free_env_obj);
 	free_data(set);

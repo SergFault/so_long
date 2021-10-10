@@ -1,6 +1,7 @@
 STD_MAP		=	map.ber
 SMALL_MAP	=	map1.ber
 NAME 		=	so_long
+NAME_B		=	so_long_bonus
 CC			=	clang
 FLAGS		=	-Wall -Wextra -Werror -std=c99 -g #-fsanitize=leak \
 -fsanitize=address
@@ -31,21 +32,23 @@ SRC_B		+=	bonus/src/dao_img_bonus.c bonus/src/enemy_processor_bonus.c \
 				bonus/src/print_status_bonus.c \
 				bonus/src/common_utils_bonus.c
 OBJS		= 	${SRC:.c=.o}
-OBJ_M		=	${SRC_M:.c=.o}
 OBJ_B		=	${SRC_B:.c=.o}
 
-%.o:		%.c $(HEADER)
-			$(CC) $(FLAGS) -g -I$(INCLUDES) -c $< -o $@
+%.o:		%.c Makefile
+			$(CC) $(FLAGS) -I$(INCLUDES) -c $< -o $@
 
 all:		$(NAME)
 
-$(NAME):	$(OBJS)
-			make -C $(MLX_DIR)
+bonus:		$(NAME_B)
+
+$(NAME):	$(OBJS) $(LIB_BIN)
 			$(CC) $(FLAGS) -o $@ $^ $(LIB)
 
-bonus:		$(OBJ_B)
-			make -C $(MLX_DIR)
+$(NAME_B):	$(OBJ_B) $(LIB_BIN)
 			$(CC) $(FLAGS) -o $(NAME) $(OBJ_B) $(LIB)
+
+$(LIB_BIN):
+			make -C $(MLX_DIR)
 
 clean:
 			make -C $(MLX_DIR) clean
@@ -60,6 +63,11 @@ fclean:		clean
 			rm -f ${NAME}
 
 re:			fclean all
+
+-include	deps.mk
+
+deps.mk: 	$(SRC_B) $(SRC)
+			$(CC) -MM -I$(INCLUDES) $^ > $@
 
 val:		${NAME}
 			valgrind \
@@ -80,4 +88,3 @@ val_bonus:	bonus
 			./${NAME} ${SMALL_MAP}
 
 .PHONY:		val re all clean fclean bonus val_bonus
-
