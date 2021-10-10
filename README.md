@@ -15,6 +15,7 @@ Requires xorg, x11 and zlib.
 2)  Build executable file with command:
 
 
+
     make all
 
 or
