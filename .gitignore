@@ -1,3 +1,5 @@
 *.o
 valgrind-out.txt
 .idea
+deps.mk
+so_long

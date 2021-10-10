@@ -21,7 +21,7 @@
 
 # define MODEL_SIZE 64
 # define BUFFER_SIZE 40
-# define ENEMIES_NUM 30
+# define ENEMIES_NUM 20
 # define TICK 7
 
 # define WIN 1

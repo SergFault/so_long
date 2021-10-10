@@ -42,7 +42,7 @@ int	check_map_content(t_list *map)
 	objs.collectable = 0;
 	objs.exit = 0;
 	cnt_map_content(map, &objs);
-	if ((objs.exit < 1) || (objs.collectable < 1) || (objs.player < 1))
+	if ((objs.exit < 1) || (objs.collectable < 1) || (objs.player != 1))
 		return (0);
 	return (1);
 }
