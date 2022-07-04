@@ -4,7 +4,7 @@
 A basic graphic Linux project (with some manipulation can be launched at MacOS) on MiniLibX.
 Requires xorg, x11 and zlib.
 
-![Game visual](./assets/gameplay.png)
+![Game visual](./assets/so_long.gif)
 
 ### How to launch (Linux)
     
